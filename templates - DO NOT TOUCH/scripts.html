@@ -1,0 +1,26 @@
+<script>
+    const menuBar = document.querySelector('.menu-bar');
+    let lastScrollPosition = window.scrollY;
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+        lastScrollPosition = window.scrollY;
+        
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const windowHeight = window.innerHeight;
+                
+                // Trigger when we've scrolled past the viewport height
+                if (lastScrollPosition >= windowHeight) {
+                    menuBar.classList.add('expanded');
+                } else {
+                    menuBar.classList.remove('expanded');
+                }
+                
+                ticking = false;
+            });
+            
+            ticking = true;
+        }
+    });
+</script> 

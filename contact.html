@@ -11,8 +11,11 @@
     <div class="menu-bar">
         <div class="menu-content">
             <a href="home.html" class="logo-container">
-                <img src="image/verticallaportelogo.png" alt="La Porte" class="menu-logo">
+                <img src="image/logo/verticallaportelogo.png" alt="La Porte" class="menu-logo">
             </a>
+            <button class="mobile-menu-toggle">
+                <img src="image/menu.svg" alt="Menu" class="menu-icon">
+            </button>
             <div class="menu-items">
                 <a href="pdf/menu.pdf" target="_blank" class="menu-item">MENU</a>
                 <a href="contact.html" class="menu-item">CONTACT</a>
@@ -43,7 +46,7 @@
 
     <footer class="footer">
         <div class="footer-left">
-            <img src="image/fullHorizontallogo.png" alt="La Porte Logo" class="footer-logo">
+            <img src="image/logo/fullHorizontallogo.png" alt="La Porte Logo" class="footer-logo">
         </div>
         
         <nav class="footer-nav">
@@ -71,18 +74,59 @@
 
     <script>
         const menuBar = document.querySelector('.menu-bar');
+        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+        const menuItems = document.querySelector('.menu-items');
         let lastScrollPosition = window.scrollY;
+        let ticking = false;
 
-        window.addEventListener('scroll', () => {
-            const currentScrollPosition = window.scrollY;
-            
-            if (currentScrollPosition > lastScrollPosition) {
-                menuBar.classList.add('hidden');
+        // Mobile menu toggle
+        mobileMenuToggle.addEventListener('click', () => {
+            const isExpanded = menuItems.classList.contains('show');
+            if (isExpanded) {
+                menuItems.classList.remove('show');
+                menuBar.classList.remove('expanded-mobile');
+                mobileMenuToggle.setAttribute('aria-expanded', 'false');
             } else {
-                menuBar.classList.remove('hidden');
+                menuBar.classList.add('expanded-mobile');
+                mobileMenuToggle.setAttribute('aria-expanded', 'true');
+                setTimeout(() => {
+                    menuItems.classList.add('show');
+                }, 200);
             }
+        });
+
+        // Close menu when clicking menu items
+        menuItems.addEventListener('click', (e) => {
+            if (e.target.classList.contains('menu-item')) {
+                menuItems.classList.remove('show');
+                setTimeout(() => {
+                    menuBar.classList.remove('expanded-mobile');
+                    mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                }, 200);
+            }
+        });
+
+        // Handle scroll event with throttling
+        window.addEventListener('scroll', () => {
+            lastScrollPosition = window.scrollY;
             
-            lastScrollPosition = currentScrollPosition;
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const windowHeight = window.innerHeight;
+                    
+                    if (window.innerWidth > 1220) {
+                        if (lastScrollPosition >= windowHeight) {
+                            menuBar.classList.add('expanded');
+                        } else {
+                            menuBar.classList.remove('expanded');
+                        }
+                    }
+                    
+                    ticking = false;
+                });
+                
+                ticking = true;
+            }
         });
     </script>
 </body>
