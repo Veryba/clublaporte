@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="events-page">
     <div class="menu-bar">
         <div class="menu-content">
             <a href="home.html" class="logo-container">
@@ -107,8 +107,14 @@
         <div class="footer-right">
             <div class="footer-info">
                 <div class="info-item">LA <span class="footer-red-letter">P</span>ORTE</div>
-                <div class="info-item">3519 Boul. St-Laurent, Montreal, QC H2X 2T6</div>
-                <div class="info-item">438.380.8007</div>
+                <div class="info-item">
+                    <a href="https://www.google.com/maps/search/?api=1&query=3519+Boul.+St-Laurent+Montreal+QC+H2X+2T6" target="_blank" class="footer-link">
+                        3519 Boul. St-Laurent, Montreal, QC H2X 2T6
+                    </a>
+                </div>
+                <div class="info-item">
+                    <a href="tel:438-380-8007" class="footer-link">438.380.8007</a>
+                </div>
             </div>
         </div>
     </footer>
@@ -119,7 +125,7 @@
         const menuItems = document.querySelector('.menu-items');
         let lastScrollPosition = window.scrollY;
         let ticking = false;
-
+    
         // Mobile menu toggle
         mobileMenuToggle.addEventListener('click', () => {
             const isExpanded = menuItems.classList.contains('show');
@@ -135,7 +141,7 @@
                 }, 200);
             }
         });
-
+    
         // Close menu when clicking menu items
         menuItems.addEventListener('click', (e) => {
             if (e.target.classList.contains('menu-item')) {
@@ -146,9 +152,14 @@
                 }, 200);
             }
         });
-
-        // Handle scroll event with throttling
+    
+        // Only handle scroll event on home page
         window.addEventListener('scroll', () => {
+            // Check if we're on events page - if so, don't expand menu
+            if (document.body.classList.contains('events-page')) {
+                return;
+            }
+    
             lastScrollPosition = window.scrollY;
             
             if (!ticking) {

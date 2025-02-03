@@ -19,7 +19,7 @@ body {
     font-family: 'Lexend', sans-serif;
     background-color: black;
     opacity: 0;
-    animation: fadeIn 1s ease-out forwards;
+    animation: fadeIn 0.5s ease-out forwards;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -54,7 +54,8 @@ body {
     filter: drop-shadow(0 0 2px var(--neon-color))
            drop-shadow(0 0 4px var(--neon-color))
            drop-shadow(0 0 6px var(--neon-color));
-    transition: filter 0.7s ease-out;
+    transition: opacity 0.5s ease-out;
+    opacity: 1;
     animation: neonBreathing 3s ease-in-out infinite;
 }
 
@@ -84,19 +85,7 @@ body {
     transform: translateX(-50%);
 }
 
-.touch-icon {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 150px;
-    height: auto;
-    z-index: 3;
-    opacity: 1;
-    transition: opacity 0.5s ease-out;
-}
-
-.fade-out .touch-icon,
+.fade-out .main-logo,
 .fade-out ~ .facebook-link,
 .fade-out ~ .instagram-link {
     opacity: 0;
@@ -316,7 +305,7 @@ body:not(.home-page) .main-content {
     padding: 1rem;
     padding-top: 100px;
     padding-bottom: 100px;
-    overflow: hidden;
+    overflow: visible;
 }
 
 .content-section::before {
@@ -348,7 +337,6 @@ body:not(.home-page) .main-content {
     z-index: 2;
     pointer-events: none;
 }
-
 .content-section-for-sm {
     position: relative;
     z-index: 1;
@@ -1302,3 +1290,26 @@ body:not(.home-page) .main-content {
                    0 0 100px 10px rgba(0, 255, 255, 0.3);
     }
 }
+
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.video-background video {
+    position: absolute;
+    top: 45%;
+    left: 51.5%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translateX(-50%) translateY(-50%);
+    object-fit: cover;
+}
+

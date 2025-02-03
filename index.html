@@ -7,6 +7,11 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <div class="video-background">
+        <video muted id="doorVideo">
+            <source src="image/videos/door.mp4" type="video/mp4">
+        </video>
+    </div>
     <div class="container">
         <button class="logo-wrapper" id="logo-wrapper">
             <img src="image/logo/fulllogopr.png" alt="La Porte" class="main-logo">
@@ -20,6 +25,7 @@
     </div>
     <script>
         const wrapper = document.getElementById('logo-wrapper');
+        const video = document.getElementById('doorVideo');
         let isAnimating = false;
 
         wrapper.addEventListener('mouseenter', () => {
@@ -36,16 +42,19 @@
             if (isAnimating) return;
             isAnimating = true;
             
-            // Remove hover effect
+            // Remove hover effect and fade out logo
             wrapper.classList.remove('hover');
-            
-            // Add fade-out class
             wrapper.classList.add('fade-out');
             
-            // Wait for fade-out animation to complete, then change page
+            // Wait 1 second, then play video
             setTimeout(() => {
-                window.location.href = 'home.html';
+                video.play();
             }, 1000);
+
+            // Wait for video to end, then redirect
+            video.addEventListener('ended', () => {
+                window.location.href = 'home.html';
+            });
         });
     </script>
 </body>
