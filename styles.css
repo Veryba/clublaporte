@@ -316,6 +316,7 @@ body:not(.home-page) .main-content {
     padding: 1rem;
     padding-top: 100px;
     padding-bottom: 100px;
+    overflow: hidden;
 }
 
 .content-section::before {
@@ -438,6 +439,7 @@ body:not(.home-page) .main-content {
     padding: 0;
     max-width: 1400px;
     margin: 0 auto;
+    overflow: hidden;
 }
 
 .event-card:nth-child(-n+3) {
@@ -646,6 +648,11 @@ body:not(.home-page) .main-content {
     position: relative;
     aspect-ratio: 16/9;
     overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 0 100px 5px rgba(255, 255, 255, 0.2),
+                0 0 50px 5px rgba(255, 0, 0, 0.2),
+                0 0 75px 5px rgba(0, 255, 255, 0.2);
+    animation: glowPulse 4s infinite alternate;
 }
 
 .social-video {
@@ -696,6 +703,10 @@ body:not(.home-page) .main-content {
 .social-link:hover span {
     color: var(--neon-color);
     text-shadow: 0 0 10px var(--neon-color);
+}
+
+.social-link:hover img {
+    filter: brightness(0) invert(1) drop-shadow(0 0 5px var(--neon-color));
 }
 
 .social-link:hover img {
@@ -1074,7 +1085,7 @@ body:not(.home-page) .main-content {
         margin-right: 0;
         padding-left: 1rem;
         padding-right: 1rem;
-        overflow-x: hidden;
+        overflow: hidden;
     }
     
 
@@ -1100,13 +1111,24 @@ body:not(.home-page) .main-content {
     }
 
     .events-grid {
-        margin: 0;
-        padding: 0 1rem;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+        padding: 0;
+        margin: 0 auto;
         width: 100%;
+        overflow: hidden;
     }
 
     .event-card {
+        width: 100%;
+        max-width: 350px;
         margin: 0;
+    }
+
+    .event-card .event-image {
+        height: auto;
+        aspect-ratio: 2/3;
     }
 
     .social-video-container {
@@ -1143,6 +1165,24 @@ body:not(.home-page) .main-content {
     .menu-items.show .menu-item {
         opacity: 1 !important;
         animation: none;
+    }
+
+    .content-section {
+        width: 100%;
+        margin-left: 0;
+        margin-right: 0;
+        padding: 2rem 1rem;
+        overflow: hidden;
+    }
+
+    .upcoming-events {
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .events-grid {
+        width: 100%;
+        overflow: hidden;
     }
 }
 
@@ -1246,5 +1286,19 @@ body:not(.home-page) .main-content {
     .video-container img,
     .social-video-container img {
         object-fit: cover;
+    }
+}
+
+/* Add back the glow animation */
+@keyframes glowPulse {
+    0% {
+        box-shadow: 0 0 100px 5px rgba(255, 255, 255, 0.2),
+                   0 0 50px 5px rgba(255, 0, 0, 0.2),
+                   0 0 75px 5px rgba(0, 255, 255, 0.2);
+    }
+    100% {
+        box-shadow: 0 0 150px 10px rgba(255, 255, 255, 0.3),
+                   0 0 75px 10px rgba(255, 0, 0, 0.3),
+                   0 0 100px 10px rgba(0, 255, 255, 0.3);
     }
 }
