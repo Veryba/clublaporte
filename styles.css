@@ -636,7 +636,7 @@ body:not(.home-page) .main-content {
     width: 100%;
     max-width: 1000px;
     margin: 2rem auto;
-    overflow: visible;
+    overflow: hidden;
     border-radius: 10px;
     position: relative;
     box-shadow: 0 0 100px 5px rgba(255, 255, 255, 0.2),
@@ -647,11 +647,13 @@ body:not(.home-page) .main-content {
 
 .social-video {
     width: 100%;
-    height: auto;
+    height: 100%;
     display: block;
     border-radius: 10px;
     margin-top: 2rem;
     margin-bottom: 3rem;
+    object-fit: contain;
+    max-height: 60vh;
 }
 
 .social-links {
@@ -1135,6 +1137,13 @@ body:not(.home-page) .main-content {
     .menu-items.show .menu-item {
         opacity: 1 !important;
         animation: none;
+    }
+
+    .social-video {
+        max-height: 40vh;
+        width: 100%;
+        object-fit: contain;
+        margin: 1rem 0;
     }
 }
 
