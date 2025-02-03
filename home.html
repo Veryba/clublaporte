@@ -193,6 +193,34 @@
                 ticking = true;
             }
         });
+
+        // Add this after your existing script
+        document.addEventListener('DOMContentLoaded', function() {
+            const videos = document.querySelectorAll('video');
+            
+            videos.forEach(video => {
+                // Force play on load
+                video.play().catch(function(error) {
+                    console.log("Video play failed:", error);
+                    
+                    // If video fails to play, show the fallback image
+                    if (video.firstElementChild.tagName === 'SOURCE') {
+                        const img = video.lastElementChild;
+                        if (img.tagName === 'IMG') {
+                            video.style.display = 'none';
+                            img.style.display = 'block';
+                        }
+                    }
+                });
+
+                // Try to play video on user interaction
+                document.addEventListener('touchstart', function() {
+                    video.play().catch(function(error) {
+                        console.log("Video play failed after interaction:", error);
+                    });
+                }, { once: true });
+            });
+        });
     </script>
 </body>
 </html>

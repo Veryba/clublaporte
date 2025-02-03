@@ -1209,3 +1209,30 @@ body:not(.home-page) .main-content {
         animation: menuItemFadeIn 0.5s ease forwards;
     }
 }
+
+.video-container video,
+.social-video-container video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-container img,
+.social-video-container img {
+    display: none; /* Hidden by default */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media screen and (max-width: 1220px) {
+    .video-container video,
+    .social-video-container video {
+        object-fit: cover;
+    }
+    
+    .video-container img,
+    .social-video-container img {
+        object-fit: cover;
+    }
+}
