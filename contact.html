@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - La Porte</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="contact-page">
+    <div class="menu-bar">
+        <div class="menu-content">
+            <a href="home.html" class="logo-container">
+                <img src="image/verticallaportelogo.png" alt="La Porte" class="menu-logo">
+            </a>
+            <div class="menu-items">
+                <a href="pdf/menu.pdf" target="_blank" class="menu-item">MENU</a>
+                <a href="contact.html" class="menu-item">CONTACT</a>
+                <a href="events.html" class="menu-item">EVENTS</a>
+                <a href="#" class="menu-item">RESERVATIONS</a>
+                <a href="#" class="menu-item">GUEST LIST</a>
+            </div>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <div class="content-section">
+            <h1 class="section-title">CONTACT US</h1>
+            <form class="contact-form">
+                <div class="form-group">
+                    <input type="text" id="name" name="name" required class="form-input" placeholder="NAME">
+                </div>
+                <div class="form-group">
+                    <input type="email" id="email" name="email" required class="form-input" placeholder="EMAIL">
+                </div>
+                <div class="form-group">
+                    <textarea id="message" name="message" required class="form-input form-textarea" placeholder="MESSAGE"></textarea>
+                </div>
+                <button type="submit" class="submit-button">SEND</button>
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-left">
+            <img src="image/fullHorizontallogo.png" alt="La Porte Logo" class="footer-logo">
+        </div>
+        
+        <nav class="footer-nav">
+            <a href="pdf/menu.pdf" target="_blank" class="footer-link">MENU</a>
+            <a href="contact.html" class="footer-link">CONTACT</a>
+            <a href="events.html" class="footer-link">EVENTS</a>
+            <a href="" class="footer-link">RESERVATIONS</a>
+            <a href="" class="footer-link">GUEST LIST</a>
+        </nav>
+        
+        <div class="footer-right">
+            <div class="footer-info">
+                <div class="info-item">LA <span class="footer-red-letter">P</span>ORTE</div>
+                <div class="info-item">
+                    <a href="https://www.google.com/maps/search/?api=1&query=3519+Boul.+St-Laurent+Montreal+QC+H2X+2T6" target="_blank" class="footer-link">
+                        3519 Boul. St-Laurent, Montreal, QC H2X 2T6
+                    </a>
+                </div>
+                <div class="info-item">
+                    <a href="tel:438-380-8007" class="footer-link">438.380.8007</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuBar = document.querySelector('.menu-bar');
+        let lastScrollPosition = window.scrollY;
+
+        window.addEventListener('scroll', () => {
+            const currentScrollPosition = window.scrollY;
+            
+            if (currentScrollPosition > lastScrollPosition) {
+                menuBar.classList.add('hidden');
+            } else {
+                menuBar.classList.remove('hidden');
+            }
+            
+            lastScrollPosition = currentScrollPosition;
+        });
+    </script>
+</body>
+</html>

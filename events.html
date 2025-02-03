@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events - La Porte</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="menu-bar">
+        <div class="menu-content">
+            <a href="home.html" class="logo-container">
+                <img src="image/verticallaportelogo.png" alt="La Porte" class="menu-logo">
+            </a>
+            <div class="menu-items">
+                <a href="pdf/menu.pdf" target="_blank" class="menu-item">MENU</a>
+                <a href="contact.html" class="menu-item">CONTACT</a>
+                <a href="events.html" class="menu-item">EVENTS</a>
+                <a href="#" class="menu-item">RESERVATIONS</a>
+                <a href="#" class="menu-item">GUEST LIST</a>
+            </div>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <div class="content-section">
+            <div class="upcoming-events">
+                <div class="section-title">
+                    <h2><span class="red-letter">P</span>ROMO</h2>
+                </div>
+                <div class="events-grid">
+                    <div class="event-card">
+                        <div class="event-image">
+                            <img src="image/events/event4.png" alt="Event 1">
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <div class="event-image">
+                            <img src="image/events/event5.png" alt="Event 2">
+                        </div>
+                    </div>
+                    <div class="event-card">
+                        <div class="event-image">
+                            <img src="image/events/event6.png" alt="Event 3">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="events-section-for-website upcoming-section">
+                <div class="experience-content">
+                    <h2 style="margin-top: 6rem;">U<span class="red-letter">P</span>COMING EVENTS</h2> 
+                    <div class="events-grid">
+                        <div class="event-card">
+                            <div class="event-image">
+                                <img src="image/events/event1.png" alt="Event 4">
+                            </div>
+                            <div class="event-details">
+                                <h3>Ladies Night</h3>
+                                <p>Every Wednesday</p>
+                                <p>DJ Apache</p>
+                            </div>
+                        </div>
+                        <div class="event-card">
+                            <div class="event-image">
+                                <img src="image/events/event2.png" alt="Event 5">
+                            </div>
+                            <div class="event-details">
+                                <h3>Latin Night</h3>
+                                <p>Every Monday</p>
+                                <p>DJ Carlos</p>
+                            </div>
+                        </div>
+                        <div class="event-card">
+                            <div class="event-image">
+                                <img src="image/events/event3.png" alt="Event 6">
+                            </div>
+                            <div class="event-details">
+                                <h3>R&B Night</h3>
+                                <p>Every Sunday</p>
+                                <p>DJ Sarah</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-left">
+            <img src="image/fullHorizontallogo.png" alt="La Porte Logo" class="footer-logo">
+        </div>
+        
+        <nav class="footer-nav">
+            <a href="pdf/menu.pdf" target="_blank" class="footer-link">MENU</a>
+            <a href="contact.html" class="footer-link">CONTACT</a>
+            <a href="events.html" class="footer-link">EVENTS</a>
+            <a href="" class="footer-link">RESERVATIONS</a>
+            <a href="" class="footer-link">GUEST LIST</a>
+        </nav>
+        
+        <div class="footer-right">
+            <div class="footer-info">
+                <div class="info-item">LA <span class="footer-red-letter">P</span>ORTE</div>
+                <div class="info-item">3519 Boul. St-Laurent, Montreal, QC H2X 2T6</div>
+                <div class="info-item">438.380.8007</div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const menuBar = document.querySelector('.menu-bar');
+        let lastScrollPosition = window.scrollY;
+
+        window.addEventListener('scroll', () => {
+            const currentScrollPosition = window.scrollY;
+            
+            if (currentScrollPosition > lastScrollPosition) {
+                menuBar.classList.add('hidden');
+            } else {
+                menuBar.classList.remove('hidden');
+            }
+            
+            lastScrollPosition = currentScrollPosition;
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Porte</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <button class="logo-wrapper" id="logo-wrapper">
+            <img src="image/fulllogopr.png" alt="La Porte" class="main-logo">
+        </button>
+        <a href="https://www.facebook.com/clublaporte" class="facebook-link" target="_blank">
+            <img src="image/logofacebook.svg" alt="Facebook" class="facebook-logo">
+        </a>
+        <a href="https://www.instagram.com/clublaporte/" class="instagram-link" target="_blank">
+            <img src="image/logoig.svg" alt="Instagram" class="instagram-logo">
+        </a>
+    </div>
+    <script>
+        const wrapper = document.getElementById('logo-wrapper');
+        let isAnimating = false;
+
+        wrapper.addEventListener('mouseenter', () => {
+            if (!isAnimating) {
+                wrapper.classList.add('hover');
+            }
+        });
+
+        wrapper.addEventListener('mouseleave', () => {
+            wrapper.classList.remove('hover');
+        });
+
+        wrapper.addEventListener('click', () => {
+            if (isAnimating) return;
+            isAnimating = true;
+            
+            // Remove hover effect
+            wrapper.classList.remove('hover');
+            
+            // Add fade-out class
+            wrapper.classList.add('fade-out');
+            
+            // Wait for fade-out animation to complete, then change page
+            setTimeout(() => {
+                window.location.href = 'home.html';
+            }, 1000);
+        });
+    </script>
+</body>
+</html>
