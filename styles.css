@@ -133,6 +133,9 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .video-overlay {
@@ -636,22 +639,18 @@ body:not(.home-page) .main-content {
     width: 100%;
     max-width: 1000px;
     margin: 2rem auto;
-    overflow: visible;
-    border-radius: 10px;
     position: relative;
-    box-shadow: 0 0 100px 5px rgba(255, 255, 255, 0.2),
-                0 0 50px 5px rgba(255, 0, 0, 0.2),
-                0 0 75px 5px rgba(0, 255, 255, 0.2);
-    animation: glowPulse 4s infinite alternate;
+    aspect-ratio: 16/9;
+    overflow: hidden;
 }
 
 .social-video {
     width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 10px;
-    margin-top: 2rem;
-    margin-bottom: 3rem;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .social-links {
@@ -1104,7 +1103,8 @@ body:not(.home-page) .main-content {
 
     .social-video-container {
         width: calc(100% - 2rem);
-        margin: 2rem auto;
+        aspect-ratio: 16/9;
+        margin: 1rem auto;
     }
 
     .footer {
