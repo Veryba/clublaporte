@@ -3,6 +3,7 @@
 - add spacing for the drop down menu items
 - Make the video not able to fullscreen
 - Add the fade for phone
+
 - Create reservation and guest list
 
 

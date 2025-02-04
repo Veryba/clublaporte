@@ -54,7 +54,9 @@ body {
     filter: drop-shadow(0 0 2px var(--neon-color))
            drop-shadow(0 0 4px var(--neon-color))
            drop-shadow(0 0 6px var(--neon-color));
-    transition: opacity 0.5s ease-out;
+    transition: 
+        filter 0.7s ease-out,
+        opacity 0.5s ease-out;
     opacity: 1;
     animation: neonBreathing 3s ease-in-out infinite;
 }
@@ -814,13 +816,14 @@ body:not(.home-page) .main-content {
 .contact-page .main-content {
     margin-top: 100px;
     min-height: calc(100vh - 100px);
-    background: black;
+    background-image: url('image/bg/bg.png');
 }
 
 .contact-page .content-section {
     padding: 4rem 5%;
     max-width: 1200px;
     margin: 0 auto;
+    background: none;
 }
 
 .contact-form {
@@ -1313,3 +1316,106 @@ body:not(.home-page) .main-content {
     object-fit: cover;
 }
 
+.reservation-layout {
+    display: flex;
+    justify-content: left;
+    gap: 3rem;
+    align-items: center;
+    padding: 0rem;
+}
+
+.reservation-image {
+    flex: 0.8;
+    max-width: 40%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.reservation-image img {
+    width: 45%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 
+        0 0 0 1px rgba(0,0,0,1),
+        0 0 0 15px rgba(0,0,0,0.8),
+        0 0 0 25px rgba(0,0,0,0.6),
+        0 0 0 35px rgba(0,0,0,0.4),
+        0 0 0 45px rgba(0,0,0,0.2);
+    transition: box-shadow 0.3s ease;
+}
+
+.reservation-form {
+    flex: 1;
+    max-width: 45%;
+}
+
+@media (max-width: 768px) {
+    .reservation-layout {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    
+    .reservation-image,
+    .reservation-form {
+        max-width: 100%;
+    }
+}
+
+.guestlist-page {
+    background-image: url('image/bg/clubimage3.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    position: relative;
+}
+
+.guestlist-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    filter: blur(8px);
+    z-index: -1;
+}
+
+.guestlist-page .content-section {
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 1;
+}
+
+.reservations-page {
+    background-image: url('image/bg/clubimage4.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    position: relative;
+}
+
+.reservations-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    filter: blur(8px);
+    z-index: -1;
+}
+
+.reservations-page .content-section {
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    position: relative;
+    z-index: 1;
+}
