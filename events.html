@@ -88,6 +88,10 @@
                 </div>
             </div>
         </div>
+        <div id="imageModal" class="modal">
+            <span class="close">&times;</span>
+            <img class="modal-content" id="modalImg">
+        </div>
     </main>
 
     <footer class="footer">
@@ -122,6 +126,10 @@
         const menuBar = document.querySelector('.menu-bar');
         const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
         const menuItems = document.querySelector('.menu-items');
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("modalImg");
+        const closeBtn = document.getElementsByClassName("close")[0];
+        let isZoomed = false;
         let lastScrollPosition = window.scrollY;
         let ticking = false;
     
@@ -179,6 +187,28 @@
                 ticking = true;
             }
         });
+
+        document.querySelectorAll('.event-card').forEach(card => {
+            card.addEventListener('click', function() {
+                const img = this.querySelector('img');
+                modal.style.display = "block";
+                modalImg.src = img.src;
+                // Add show class after a small delay to trigger animation
+                setTimeout(() => modal.classList.add('show'), 10);
+            });
+        });
+
+        function closeModal() {
+            modal.classList.remove('show');
+            setTimeout(() => {
+                modal.style.display = "none";
+            }, 300);
+        }
+
+        closeBtn.onclick = closeModal;
+        modal.onclick = (e) => {
+            if (e.target === modal) closeModal();
+        };
     </script>
 </body>
 </html>
