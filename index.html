@@ -9,7 +9,7 @@
 </head>
 <body>
     <div class="video-background">
-        <video muted id="doorVideo">
+        <video muted playsinline webkit-playsinline id="doorVideo">
             <source src="image/videos/door.mp4" type="video/mp4">
         </video>
     </div>
@@ -24,21 +24,21 @@
             <img src="image/social media/logoig.svg" alt="Instagram" class="instagram-logo">
         </a>
     </div>
-    <script>
+    <script> 
         const wrapper = document.getElementById('logo-wrapper');
         const video = document.getElementById('doorVideo');
         let isAnimating = false;
-
+    
         wrapper.addEventListener('mouseenter', () => {
             if (!isAnimating) {
                 wrapper.classList.add('hover');
             }
         });
-
+    
         wrapper.addEventListener('mouseleave', () => {
             wrapper.classList.remove('hover');
         });
-
+    
         wrapper.addEventListener('click', () => {
             if (isAnimating) return;
             isAnimating = true;
@@ -47,16 +47,18 @@
             wrapper.classList.remove('hover');
             wrapper.classList.add('fade-out');
             
-            // Wait 1 second, then play video
+            // Wait 1 second, then check viewport width
             setTimeout(() => {
-                video.play();
+                if (window.innerWidth >= 1220 || window.innerWidth <=1920) {
+                    video.play();
+                    video.addEventListener('ended', () => {
+                        window.location.href = 'home.html';
+                    });
+                } else {
+                    window.location.href = 'home.html';
+                }
             }, 1000);
-
-            // Wait for video to end, then redirect
-            video.addEventListener('ended', () => {
-                window.location.href = 'home.html';
-            });
         });
-    </script>
+    </script>    
 </body>
 </html>

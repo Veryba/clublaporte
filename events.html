@@ -33,19 +33,21 @@
                     <h2><span class="red-letter">P</span>ROMO</h2>
                 </div>
                 <div class="events-grid">
-                    <div class="event-card">
-                        <div class="event-image">
-                            <img src="image/events/event4.png" alt="Event 1">
+                    <div class="carousel-container">
+                        <div class="event-card">
+                            <div class="event-image">
+                                <img src="image/events/event4.png" alt="Event 1">
+                            </div>
                         </div>
-                    </div>
-                    <div class="event-card">
-                        <div class="event-image">
-                            <img src="image/events/event5.png" alt="Event 2">
+                        <div class="event-card">
+                            <div class="event-image">
+                                <img src="image/events/event5.png" alt="Event 2">
+                            </div>
                         </div>
-                    </div>
-                    <div class="event-card">
-                        <div class="event-image">
-                            <img src="image/events/event6.png" alt="Event 3">
+                        <div class="event-card">
+                            <div class="event-image">
+                                <img src="image/events/event6.png" alt="Event 3">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -56,34 +58,36 @@
             <div class="experience-content">
                 <h2 style="margin-top: 6rem;">U<span class="red-letter">P</span>COMING EVENTS</h2> 
                 <div class="events-grid">
-                    <div class="event-card">
-                        <div class="event-image">
-                            <img src="image/events/event1.png" alt="Event 4">
+                    <div class="carousel-container">
+                        <div class="event-card">
+                            <div class="event-image">
+                                <img src="image/events/event1.png" alt="Event 4">
+                            </div>
+                            <div class="event-details">
+                                <h3>Hip Hop/Amapiano</h3>
+                                <p>Every Thursday</p>
+                                <p>DJ Jokege</p>
+                            </div>
                         </div>
-                        <div class="event-details">
-                            <h3>Hip Hop/Amapiano</h3>
-                            <p>Every Thursday</p>
-                            <p>DJ Jokege</p>
+                        <div class="event-card">
+                            <div class="event-image">
+                                <img src="image/events/event2.png" alt="Event 5">
+                            </div>
+                            <div class="event-details">
+                                <h3>Afro Caribbean</h3>
+                                <p>Every Friday</p>
+                                <p>DJ Apache</p>
+                            </div>
                         </div>
-                    </div>
-                    <div class="event-card">
-                        <div class="event-image">
-                            <img src="image/events/event2.png" alt="Event 5">
-                        </div>
-                        <div class="event-details">
-                            <h3>Afro Caribbean</h3>
-                            <p>Every Friday</p>
-                            <p>DJ Apache</p>
-                        </div>
-                    </div>
-                    <div class="event-card">
-                        <div class="event-image">
-                            <img src="image/events/event3.png" alt="Event 6">
-                        </div>
-                        <div class="event-details">
-                            <h3>Link Up</h3>
-                            <p>Every Sunday</p>
-                            <p>DJ Jokege</p>
+                        <div class="event-card">
+                            <div class="event-image">
+                                <img src="image/events/event3.png" alt="Event 6">
+                            </div>
+                            <div class="event-details">
+                                <h3>Link Up</h3>
+                                <p>Every Sunday</p>
+                                <p>DJ Jokege</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -210,6 +214,31 @@
         modal.onclick = (e) => {
             if (e.target === modal) closeModal();
         };
+
+        const carouselContainer = document.querySelector('.carousel-container');
+        const cards = document.querySelectorAll('.event-card');
+
+        if (window.innerWidth <= 1220) {
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            carouselContainer.addEventListener('touchstart', e => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+
+            carouselContainer.addEventListener('touchend', e => {
+                touchEndX = e.changedTouches[0].screenX;
+                const diff = touchStartX - touchEndX;
+                if (Math.abs(diff) > 50) {
+                    const cardWidth = cards[0].offsetWidth;
+                    const scrollAmount = Math.sign(diff) * cardWidth;
+                    carouselContainer.scrollBy({
+                        left: scrollAmount,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        }
     </script>
 </body>
 </html>

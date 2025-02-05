@@ -1,10 +1,7 @@
-- Make the events with arrow for phone
-- Fix the event page for phone
+(IMPORTANT)
+- Make background image less zoomed in
+- there is bar at the right with nothing
+- make that the user can scroll vertically
+
 - add spacing for the drop down menu items
-- Make the video not able to fullscreen
-- Add the fade for phone
-
-- Create reservation and guest list
-
-
-<iframe src="https://pacha.com/media/oembed?url=https%3A//vimeo.com/953042631%3Fshare%3Dcopy&amp;max_width=0&amp;max_height=0&amp;hash=IS4egMU7v78V5sJ0dwxA7SaV9aEsIEVASvXh207NeY0&amp;media_oembed_control%5Bprovider_name%5D=Vimeo&amp;media_oembed_control%5Bsettings%5D%5Bvideo_autoplay%5D=1&amp;media_oembed_control%5Bsettings%5D%5Bvideo_background%5D=1" width="426" height="240" class="media-oembed-content" loading="eager" title="Pacha club video"></iframe>
+- make the carousel better
