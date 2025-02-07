@@ -128,117 +128,184 @@
     </footer>
 
     <script>
-        const menuBar = document.querySelector('.menu-bar');
-        const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-        const menuItems = document.querySelector('.menu-items');
-        const modal = document.getElementById("imageModal");
-        const modalImg = document.getElementById("modalImg");
-        const closeBtn = document.getElementsByClassName("close")[0];
-        let isZoomed = false;
-        let lastScrollPosition = window.scrollY;
-        let ticking = false;
-    
-        // Mobile menu toggle
-        mobileMenuToggle.addEventListener('click', () => {
-            const isExpanded = menuItems.classList.contains('show');
-            if (isExpanded) {
-                menuItems.classList.remove('show');
-                menuBar.classList.remove('expanded-mobile');
-                mobileMenuToggle.setAttribute('aria-expanded', 'false');
-            } else {
-                menuBar.classList.add('expanded-mobile');
-                mobileMenuToggle.setAttribute('aria-expanded', 'true');
-                setTimeout(() => {
-                    menuItems.classList.add('show');
-                }, 200);
-            }
-        });
-    
-        // Close menu when clicking menu items
-        menuItems.addEventListener('click', (e) => {
-            if (e.target.classList.contains('menu-item')) {
-                menuItems.classList.remove('show');
-                setTimeout(() => {
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuBar = document.querySelector('.menu-bar');
+            const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
+            const menuItems = document.querySelector('.menu-items');
+            let lastScrollPosition = window.scrollY;
+            let ticking = false;
+
+            // Mobile menu toggle
+            mobileMenuToggle.addEventListener('click', () => {
+                const isExpanded = menuItems.classList.contains('show');
+                if (isExpanded) {
+                    menuItems.classList.remove('show');
                     menuBar.classList.remove('expanded-mobile');
                     mobileMenuToggle.setAttribute('aria-expanded', 'false');
-                }, 200);
-            }
-        });
-    
-        // Only handle scroll event on home page
-        window.addEventListener('scroll', () => {
-            // Check if we're on events page - if so, don't expand menu
-            if (document.body.classList.contains('events-page')) {
-                return;
-            }
-    
-            lastScrollPosition = window.scrollY;
-            
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    const windowHeight = window.innerHeight;
-                    
-                    if (window.innerWidth > 1220) {
-                        if (lastScrollPosition >= windowHeight) {
-                            menuBar.classList.add('expanded');
-                        } else {
-                            menuBar.classList.remove('expanded');
-                        }
-                    }
-                    
-                    ticking = false;
-                });
-                
-                ticking = true;
-            }
-        });
-
-        document.querySelectorAll('.event-card').forEach(card => {
-            card.addEventListener('click', function() {
-                const img = this.querySelector('img');
-                modal.style.display = "block";
-                modalImg.src = img.src;
-                // Add show class after a small delay to trigger animation
-                setTimeout(() => modal.classList.add('show'), 10);
-            });
-        });
-
-        function closeModal() {
-            modal.classList.remove('show');
-            setTimeout(() => {
-                modal.style.display = "none";
-            }, 300);
-        }
-
-        closeBtn.onclick = closeModal;
-        modal.onclick = (e) => {
-            if (e.target === modal) closeModal();
-        };
-
-        const carouselContainer = document.querySelector('.carousel-container');
-        const cards = document.querySelectorAll('.event-card');
-
-        if (window.innerWidth <= 1220) {
-            let touchStartX = 0;
-            let touchEndX = 0;
-
-            carouselContainer.addEventListener('touchstart', e => {
-                touchStartX = e.changedTouches[0].screenX;
-            });
-
-            carouselContainer.addEventListener('touchend', e => {
-                touchEndX = e.changedTouches[0].screenX;
-                const diff = touchStartX - touchEndX;
-                if (Math.abs(diff) > 50) {
-                    const cardWidth = cards[0].offsetWidth;
-                    const scrollAmount = Math.sign(diff) * cardWidth;
-                    carouselContainer.scrollBy({
-                        left: scrollAmount,
-                        behavior: 'smooth'
-                    });
+                } else {
+                    menuBar.classList.add('expanded-mobile');
+                    mobileMenuToggle.setAttribute('aria-expanded', 'true');
+                    setTimeout(() => {
+                        menuItems.classList.add('show');
+                    }, 200);
                 }
             });
-        }
+
+            // Close menu when clicking menu items
+            menuItems.addEventListener('click', (e) => {
+                if (e.target.classList.contains('menu-item')) {
+                    menuItems.classList.remove('show');
+                    setTimeout(() => {
+                        menuBar.classList.remove('expanded-mobile');
+                        mobileMenuToggle.setAttribute('aria-expanded', 'false');
+                    }, 200);
+                }
+            });
+
+            // Handle scroll event
+            window.addEventListener('scroll', () => {
+                lastScrollPosition = window.scrollY;
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        const windowHeight = window.innerHeight;
+                        if (window.innerWidth > 1220) {
+                            if (lastScrollPosition >= windowHeight) {
+                                menuBar.classList.add('expanded');
+                            } else {
+                                menuBar.classList.remove('expanded');
+                            }
+                        }
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+
+            // Modal setup
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImg");
+            const closeBtn = document.getElementsByClassName("close")[0];
+
+            document.querySelectorAll('.event-card').forEach(card => {
+                card.addEventListener('click', function() {
+                    const img = this.querySelector('img');
+                    modal.style.display = "block";
+                    modalImg.src = img.src;
+                    setTimeout(() => modal.classList.add('show'), 10);
+                });
+            });
+
+            function closeModal() {
+                modal.classList.remove('show');
+                setTimeout(() => {
+                    modal.style.display = "none";
+                }, 300);
+            }
+
+            closeBtn.onclick = closeModal;
+            modal.onclick = (e) => {
+                if (e.target === modal) closeModal();
+            };
+
+            // Initialize all carousels
+            document.querySelectorAll('.carousel-container').forEach(carouselContainer => {
+                const cards = Array.from(carouselContainer.querySelectorAll('.event-card'));
+                let currentIndex = 0;
+                let startX = 0;
+                let isDragging = false;
+
+                // Create dots
+                const dotsContainer = document.createElement('div');
+                dotsContainer.className = 'carousel-dots';
+                cards.forEach((_, index) => {
+                    const dot = document.createElement('div');
+                    dot.className = `carousel-dot ${index === 0 ? 'active' : ''}`;
+                    dot.addEventListener('click', () => goToSlide(index));
+                    dotsContainer.appendChild(dot);
+                });
+                carouselContainer.parentNode.insertBefore(dotsContainer, carouselContainer.nextSibling);
+
+                function updateCarousel() {
+                    cards.forEach((card, index) => {
+                        card.classList.remove('active', 'prev', 'next');
+                        if (index === currentIndex) {
+                            card.classList.add('active');
+                        } else if (index === (currentIndex - 1 + cards.length) % cards.length) {
+                            card.classList.add('prev');
+                        } else if (index === (currentIndex + 1) % cards.length) {
+                            card.classList.add('next');
+                        }
+                    });
+                }
+
+                function updateDots() {
+                    dotsContainer.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+                        dot.classList.toggle('active', index === currentIndex);
+                    });
+                }
+
+                function goToSlide(index) {
+                    currentIndex = index;
+                    updateCarousel();
+                    updateDots();
+                }
+
+                function nextSlide() {
+                    currentIndex = (currentIndex + 1) % cards.length;
+                    updateCarousel();
+                    updateDots();
+                }
+
+                function prevSlide() {
+                    currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+                    updateCarousel();
+                    updateDots();
+                }
+
+                // Touch events
+                carouselContainer.addEventListener('touchstart', (e) => {
+                    startX = e.touches[0].clientX;
+                    isDragging = true;
+                });
+
+                carouselContainer.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    e.preventDefault();
+                    
+                    const currentX = e.touches[0].clientX;
+                    const diff = startX - currentX;
+                    
+                    if (Math.abs(diff) > 20) {
+                        cards[currentIndex].style.transform = `translateX(calc(-50% - ${diff}px)) scale(${1 - Math.abs(diff) / 1000})`;
+                    }
+                });
+
+                carouselContainer.addEventListener('touchend', (e) => {
+                    if (!isDragging) return;
+                    
+                    const endX = e.changedTouches[0].clientX;
+                    const diffX = startX - endX;
+
+                    cards[currentIndex].style.transform = '';
+
+                    if (Math.abs(diffX) > 50) {
+                        if (diffX > 0) {
+                            nextSlide();
+                        } else {
+                            prevSlide();
+                        }
+                    }
+
+                    isDragging = false;
+                });
+
+                // Initialize carousel
+                updateCarousel();
+
+                // Auto advance
+                setInterval(nextSlide, 5000);
+            });
+        });
     </script>
 </body>
 </html>

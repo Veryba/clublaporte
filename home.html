@@ -45,7 +45,7 @@
                                 <img src="image/events/event1.png" alt="Event 1">
                             </div>
                             <div class="event-details">
-                                <h3>Hip Hop/Amapiano</h3>
+                                <h3>Amapiano</h3>
                                 <p>Every Thursday</p>
                                 <p>DJ Jokege</p>
                             </div>
@@ -254,30 +254,106 @@
             if (e.target === modal) closeModal();
         };
 
-        const carouselContainer = document.querySelector('.carousel-container');
-        const cards = document.querySelectorAll('.event-card');
+        document.addEventListener('DOMContentLoaded', function() {
+            const carouselContainer = document.querySelector('.carousel-container');
+            const cards = Array.from(carouselContainer.querySelectorAll('.event-card'));
+            let currentIndex = 0;
+            let startX = 0;
+            let isDragging = false;
 
-        if (window.innerWidth <= 1220) {
-            let touchStartX = 0;
-            let touchEndX = 0;
+            // Create dots
+            const dotsContainer = document.createElement('div');
+            dotsContainer.className = 'carousel-dots';
+            cards.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.className = `carousel-dot ${index === 0 ? 'active' : ''}`;
+                dot.addEventListener('click', () => goToSlide(index));
+                dotsContainer.appendChild(dot);
+            });
+            carouselContainer.parentNode.insertBefore(dotsContainer, carouselContainer.nextSibling);
 
-            carouselContainer.addEventListener('touchstart', e => {
-                touchStartX = e.changedTouches[0].screenX;
+            function updateCarousel() {
+                cards.forEach((card, index) => {
+                    card.classList.remove('active', 'prev', 'next');
+                    if (index === currentIndex) {
+                        card.classList.add('active');
+                    } else if (index === (currentIndex - 1 + cards.length) % cards.length) {
+                        card.classList.add('prev');
+                    } else if (index === (currentIndex + 1) % cards.length) {
+                        card.classList.add('next');
+                    }
+                });
+            }
+
+            function updateDots() {
+                document.querySelectorAll('.carousel-dot').forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentIndex);
+                });
+            }
+
+            function goToSlide(index) {
+                currentIndex = index;
+                updateCarousel();
+                updateDots();
+            }
+
+            function nextSlide() {
+                currentIndex = (currentIndex + 1) % cards.length;
+                updateCarousel();
+                updateDots();
+            }
+
+            function prevSlide() {
+                currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+                updateCarousel();
+                updateDots();
+            }
+
+            // Touch events
+            carouselContainer.addEventListener('touchstart', (e) => {
+                startX = e.touches[0].clientX;
+                isDragging = true;
             });
 
-            carouselContainer.addEventListener('touchend', e => {
-                touchEndX = e.changedTouches[0].screenX;
-                const diff = touchStartX - touchEndX;
-                if (Math.abs(diff) > 50) {
-                    const cardWidth = cards[0].offsetWidth;
-                    const scrollAmount = Math.sign(diff) * cardWidth;
-                    carouselContainer.scrollBy({
-                        left: scrollAmount,
-                        behavior: 'smooth'
-                    });
+            carouselContainer.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                
+                const currentX = e.touches[0].clientX;
+                const diff = startX - currentX;
+                
+                // Optional: Add real-time dragging effect
+                if (Math.abs(diff) > 20) {
+                    cards[currentIndex].style.transform = `translateX(calc(-50% - ${diff}px)) scale(${1 - Math.abs(diff) / 1000})`;
                 }
             });
-        }
+
+            carouselContainer.addEventListener('touchend', (e) => {
+                if (!isDragging) return;
+                
+                const endX = e.changedTouches[0].clientX;
+                const diffX = startX - endX;
+
+                // Reset any inline styles
+                cards[currentIndex].style.transform = '';
+
+                if (Math.abs(diffX) > 50) { // Minimum swipe distance
+                    if (diffX > 0) {
+                        nextSlide();
+                    } else {
+                        prevSlide();
+                    }
+                }
+
+                isDragging = false;
+            });
+
+            // Initialize carousel
+            updateCarousel();
+
+            // Optional: Auto advance
+            setInterval(nextSlide, 5000);
+        });
     </script>
 </body>
 </html>
