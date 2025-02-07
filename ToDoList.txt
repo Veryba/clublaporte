@@ -1,3 +1,5 @@
 (IMPORTANT)
 - Make background image less zoomed in for IOS
-
+- Make title less big phone
+- the scroll is a little bit to low for the mobile
+- put the adress in index.html
