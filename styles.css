@@ -27,12 +27,6 @@ body {
     align-items: center;
 }
 
-.events-page {
-    opacity: 1;
-    transform: none;
-    animation: none;
-}
-
 .container {
     width: 100%;
     height: 100vh;
@@ -115,7 +109,13 @@ body {
            drop-shadow(0 0 9px var(--neon-color));
 }
 
-/* Video styles */
+/*
+##############################################
+#                                            #
+#                Video Container               #
+#                                            #
+############################################## 
+*/
 .video-container {
     position: fixed;
     top: 0;
@@ -142,20 +142,23 @@ body {
     user-select: none;
 }
 
-.video-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
+.video-container img {
+    display: block;
     width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.3);
+    height: auto;
+    object-fit: contain;
+    position: relative;
+    z-index: 1;
 }
 
+/*
+##############################################
+#                                            #
+#                Menu Bar                    #
+#                                            #
+############################################## 
+*/  
 
-/* Menu Bar Styles */
 .menu-bar {
     position: fixed;
     top: 20px;
@@ -272,7 +275,13 @@ body {
     width: 100%;
 }
 
-/* Content Section */
+/*
+##############################################
+#                                            #
+#                Content Section              #
+#                                            #
+############################################## 
+*/
 .main-content {
     flex: 1;
     display: flex;
@@ -553,20 +562,6 @@ body:not(.home-page) .main-content {
     height: 60vh;
     width: 100%;
     background-image: url('image/bg/clubimage2.jpg');
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.events-section-for-website {
-    position: relative;
-    height: 60vh;
-    width: 100%;
-    background-image: url('image/bg/clubimage.jpg');
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
@@ -995,6 +990,10 @@ body:not(.home-page) .main-content {
         position: relative;
     }
 
+    .main-content{
+        margin-top: 0;
+    }
+
     .home-section-title{
         font-size: 3rem;
     }
@@ -1078,11 +1077,7 @@ body:not(.home-page) .main-content {
     }
 
     .experience-section {
-        width: 100vw;
-        margin-left: 0;
-        margin-right: 0;
-        padding-left: 1rem;
-        padding-right: 1rem;
+        background-position: center center; 
     }
 
     .experience-content h2 {
@@ -1269,16 +1264,6 @@ body:not(.home-page) .main-content {
     .events-grid {
         width: 100%;
         overflow: hidden;
-    }
-
-    .scroll-indicator {
-        position: fixed;
-        bottom: calc(100vh - 100%);
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 10;
-        opacity: 0;
-        animation: bounce 2s infinite, fadeOut 3s forwards 2s;
     }
 }
 
@@ -1505,33 +1490,30 @@ body:not(.home-page) .main-content {
     }
 }
 
-.events-page .content-section {
-    animation: fadeInUp 0.8s ease forwards;
-}
-
-.events-page .section-title {
-    animation: fadeInUp 0.8s ease 0.2s forwards;
-    opacity: 0;
-}
-
-.events-page .event-card {
-    opacity: 0;
-    animation: fadeInUp 0.8s ease forwards;
-}
-
-.events-page .event-card:nth-child(1) { animation-delay: 0.4s; }
-.events-page .event-card:nth-child(2) { animation-delay: 0.6s; }
-.events-page .event-card:nth-child(3) { animation-delay: 0.8s; }
-.events-page .event-card:nth-child(4) { animation-delay: 1.0s; }
-.events-page .event-card:nth-child(5) { animation-delay: 1.2s; }
-.events-page .event-card:nth-child(6) { animation-delay: 1.4s; }
-
 .scroll-indicator {
+    display: block;
+    width: 50px;
+    height: auto;
     position: absolute;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
-    width: 40px;
-    height: auto;
     z-index: 2;
+}
+
+@media screen and (max-width: 1220px) {
+    .hero-section {
+        position: relative;
+        height: 100vh;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .scroll-indicator {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 40px;
+    }
 }
